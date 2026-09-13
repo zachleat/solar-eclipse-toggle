@@ -112,7 +112,6 @@ Styles are in the `solar-eclipse-toggle` cascade layer, so your own styles win. 
 * `--se-light-color`, `--se-light-border`, `--se-light-icon`, `--se-light-hover`
 * `--se-dark-color`, `--se-dark-border`, `--se-dark-icon`, `--se-dark-hover`
 * `--se-focus`
-* `--se-system-width`: width of the SYSTEM divider (default `3.75em`), used to re-center the label when SYSTEM is hidden. Adjust it for translations.
 
 ## Credits
 

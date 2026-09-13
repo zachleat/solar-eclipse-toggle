@@ -10,7 +10,9 @@
 		display: inline-flex;
 	}
 
+	/* Fills the component’s min-width, set by JavaScript so toggling SYSTEM doesn’t resize the button */
 	.se-button {
+		flex-grow: 1;
 		display: inline-flex;
 		align-items: center;
 		gap: .4em;
@@ -47,6 +49,7 @@
 	/* Every label shares one cell so the width never changes */
 	.se-label {
 		display: inline-grid;
+		flex-grow: 1;
 	}
 	/* Icon on the left, text centered in the rest */
 	.se-label > * {
@@ -60,13 +63,9 @@
 	}
 	/* Full-height divider between the label and SYSTEM, pulled through the button’s block padding */
 	.se-system {
-		/* Fixed width (in the button’s ems, undoing the .7em font-size) so the label can be re-centered without it */
-		box-sizing: border-box;
-		width: calc(var(--se-system-width, 3.75em) / .7);
+		display: none;
 		align-self: stretch;
-		display: flex;
 		align-items: center;
-		justify-content: center;
 		margin-block: calc(-1 * var(--_padding-block) / .7);
 		padding-inline-start: .5em;
 		border-inline-start: 1px solid currentColor;
@@ -74,15 +73,6 @@
 		letter-spacing: .05em;
 		line-height: 1.2;
 		text-transform: uppercase;
-		visibility: hidden;
-	}
-	/* While SYSTEM is hidden, shift the text by half its width (plus the .4em gap) to center it, keeping the icon in place */
-	.se-label {
-		--_shift: calc((var(--se-system-width, 3.75em) + .4em) / 2);
-		translate: var(--_shift);
-	}
-	.se-label .se-icon {
-		translate: calc(-1 * var(--_shift));
 	}
 	.se-status {
 		clip-path: inset(50%);
@@ -93,14 +83,12 @@
 		width: 1px;
 	}
 
-	/* Before JavaScript */
-	solar-eclipse-toggle:not(:defined) {
-		& :is(.se-label-unknown, .se-system) {
-			visibility: visible;
-		}
-		& :is(.se-label, .se-label .se-icon) {
-			translate: none;
-		}
+	/* Before JavaScript, and while JavaScript measures the button */
+	solar-eclipse-toggle:not(:defined) .se-label-unknown {
+		visibility: visible;
+	}
+	solar-eclipse-toggle:is(:not(:defined), [data-se-measure]) .se-system {
+		display: flex;
 	}
 
 	/* The label previews the theme the button switches to */
@@ -144,20 +132,14 @@
 	@media (prefers-color-scheme: light) {
 		:root[data-theme="dark"] solar-eclipse-toggle:defined {
 			& .se-system {
-				visibility: visible;
-			}
-			& :is(.se-label, .se-label .se-icon) {
-				translate: none;
+				display: flex;
 			}
 		}
 	}
 	@media (prefers-color-scheme: dark) {
 		:root[data-theme="light"] solar-eclipse-toggle:defined {
 			& .se-system {
-				visibility: visible;
-			}
-			& :is(.se-label, .se-label .se-icon) {
-				translate: none;
+				display: flex;
 			}
 		}
 	}

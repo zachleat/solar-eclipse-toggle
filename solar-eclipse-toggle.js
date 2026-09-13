@@ -103,6 +103,18 @@ export class SolarEclipseToggle extends HTMLElement {
 		return this.isAuto ? `${status}, ${this.#getAttr("statusAuto")}.` : `${status}.`;
 	}
 
+	// Sets min-width to the width with SYSTEM shown, so toggling SYSTEM’s display doesn’t resize it
+	setWidth() {
+		if(!this.isConnected) {
+			return;
+		}
+		this.style.minWidth = "";
+		this.setAttribute("data-se-measure", "");
+		let { width } = this.getBoundingClientRect();
+		this.removeAttribute("data-se-measure");
+		this.style.minWidth = `${Math.ceil(width)}px`;
+	}
+
 	connectedCallback() {
 		let button = this.querySelector(`.${SolarEclipseToggle.classes.button}`);
 		if(!button) {
@@ -124,6 +136,10 @@ export class SolarEclipseToggle extends HTMLElement {
 
 		// Disabled in the markup until JavaScript can handle clicks
 		button.disabled = false;
+
+		this.setWidth();
+		// Web fonts can change the width after load
+		document.fonts?.ready.then(() => this.setWidth());
 
 		// Added on connect (not click) so screen readers are already watching the live region
 		if(!this.querySelector(`.${SolarEclipseToggle.classes.status}`)) {
