@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="color-scheme" content="light dark">
+		<meta name="description" content="An accessible light/dark theme toggle button that follows your system preference by default.">
+		<title>solar-eclipse-toggle Web Component</title>
+		<script>
+		// Applies a saved theme before first paint
+		try {
+			let theme = localStorage.getItem("theme");
+			if(theme === "light" || theme === "dark") {
+				document.documentElement.setAttribute("data-theme", theme);
+			}
+		} catch(e) {}
+		</script>
+		<style>
+		/* Demo styles */
+		:root {
+			--bg: #fff;
+			--text: #222;
+			color-scheme: light;
+		}
+		@media (prefers-color-scheme: dark) {
+			:root:not([data-theme="light"]) {
+				--bg: #1d1d1d;
+				--text: #eee;
+				color-scheme: dark;
+			}
+		}
+		:root[data-theme="dark"] {
+			--bg: #1d1d1d;
+			--text: #eee;
+			color-scheme: dark;
+		}
+		body {
+			font-family: system-ui, sans-serif;
+			margin: 0;
+			background-color: var(--bg);
+			color: var(--text);
+		}
+		main {
+			max-width: 64em;
+			margin: 0 auto;
+			padding: 1em;
+		}
+		.custom-colors {
+			--se-light-color: #0b6b3a;
+			--se-light-border: #0b6b3a;
+			--se-light-icon: #0b6b3a;
+			--se-dark-color: #ff9bd2;
+			--se-dark-border: #ff9bd2;
+			--se-dark-icon: #ff9bd2;
+		}
+		</style>
+		<link rel="stylesheet" href="./solar-eclipse-toggle.css">
+		<script type="module" src="./solar-eclipse-toggle.js"></script>
+	</head>
+	<body>
+<!-- zachleat nav (2026-09-05) -->
+<style>
+.demo-nav{all:initial;--demo-nav-bg:light-dark(#f4f6f4b3,#1e201eb3);--demo-nav-bg-solid:light-dark(#fff,#1b1b1b);--demo-nav-text:light-dark(#222,#f2f2f2);--demo-nav-muted:light-dark(#525252,#a9a9a9);--demo-nav-border:light-dark(#d2ded2,#2f3a2f);--demo-nav-green:light-dark(#4caf50,#6cc470);--demo-nav-primary:light-dark(#3c603c,#9ccf9f);--demo-nav-accent:light-dark(#f525e9,#ff6df5);--demo-nav-icon-bg:light-dark(#0000000d,#ffffff14);--demo-nav-radius:.25em;--demo-nav-font:Lato, Numero, system-ui, -apple-system, sans-serif;--demo-nav-font-mono:Consolas, Monaco, ui-monospace, monospace;box-sizing:border-box;isolation:isolate;color-scheme:light dark;background-color:var(--demo-nav-bg);border-block-end:1px solid var(--demo-nav-border);color:var(--demo-nav-text);font-family:var(--demo-nav-font);text-align:start;flex-wrap:wrap;align-items:center;gap:.5em 1.5em;padding:.75em clamp(.75em,3vw,1.5em);line-height:1.4;display:flex}.demo-nav *,.demo-nav :before,.demo-nav :after{all:unset;display:revert;box-sizing:border-box}.demo-nav a{color:var(--demo-nav-text);cursor:pointer;text-decoration:underline;text-decoration-color:var(--demo-nav-green);text-underline-offset:.2em;text-decoration-thickness:.09em}.demo-nav a:hover,.demo-nav a:focus,.demo-nav a:active{color:var(--demo-nav-green)}.demo-nav a:focus-visible{outline:2px solid var(--demo-nav-accent);outline-offset:3px;border-radius:var(--demo-nav-radius)}@media (height>=30em){.demo-nav{z-index:1;position:sticky;top:0}@supports (backdrop-filter:blur(1px)){.demo-nav{backdrop-filter:saturate(180%)blur(10px)}}}.demo-nav.demo-nav-static{position:static}.demo-nav .demo-nav-icon{border-radius:var(--demo-nav-icon-radius,var(--demo-nav-radius));background-color:var(--demo-nav-icon-bg);object-fit:contain;flex-shrink:0;width:1.15em;height:1.15em;display:block;overflow:hidden}.demo-nav .demo-nav-home{color:var(--demo-nav-primary);flex-shrink:0;align-items:center;gap:.4em;font-weight:700;text-decoration:none;display:inline-flex}.demo-nav .demo-nav-home:hover{color:var(--demo-nav-green);text-underline-offset:.2em;text-decoration:underline}.demo-nav .demo-nav-suffix{color:var(--demo-nav-muted);font-weight:400}.demo-nav .demo-nav-home .demo-nav-icon{border-radius:var(--demo-nav-icon-radius,50%);width:1.6em;height:1.6em}.demo-nav .demo-nav-heading{flex:12em;min-width:0}.demo-nav .demo-nav-title{color:var(--demo-nav-text);margin:0;font-size:1em;font-weight:700;line-height:1.3;display:block}.demo-nav .demo-nav-description{color:var(--demo-nav-muted);text-wrap:pretty;margin:0;font-size:.8125em;display:block}.demo-nav .demo-nav-links{flex-wrap:wrap;align-items:center;gap:.25em 1em;margin-inline-start:auto;font-size:.875em;display:flex}.demo-nav .demo-nav-links a{align-items:center;gap:.4em;display:inline-flex}.demo-nav .demo-nav-code{font-family:var(--demo-nav-font-mono);font-size:.9em}.demo-nav .demo-nav-skip{clip-path:inset(50%);white-space:nowrap;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.demo-nav .demo-nav-skip:focus-visible{clip-path:none;background-color:var(--demo-nav-bg-solid);width:auto;height:auto;margin:0;padding:.25em .5em;position:static;overflow:visible}@media (width<=30em){.demo-nav .demo-nav-links{flex-basis:100%;margin-inline-start:0}}@media print{.demo-nav{border-block-end-width:0}.demo-nav .demo-nav-links,.demo-nav .demo-nav-skip{display:none}}
+</style>
+<header class="demo-nav">
+	<a class="demo-nav-skip" href="#demo">Skip to the demo</a>
+	<a class="demo-nav-home" href="https://www.zachleat.com/">
+		<img class="demo-nav-icon" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2F/" alt="" width="48" height="48" decoding="async">
+		<span>zachleat<span class="demo-nav-suffix"> Demo</span></span>
+	</a>
+	<div class="demo-nav-heading">
+		<h1 class="demo-nav-title">&lt;solar-eclipse-toggle&gt; Web Component</h1>
+		<p class="demo-nav-description">An accessible light/dark theme toggle button that follows your system preference by default.</p>
+	</div>
+	<nav class="demo-nav-links" aria-label="Demo links">
+		<a href="https://github.com/zachleat/solar-eclipse-toggle"><img class="demo-nav-icon" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fgithub.com%2Fzachleat%2Fsolar-eclipse-toggle/" alt="" width="24" height="24" decoding="async">Source</a>
+		<a href="https://www.npmjs.com/package/%40zachleat%2Fsolar-eclipse-toggle"><img class="demo-nav-icon" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fdocs.npmjs.com%2F/" alt="" width="24" height="24" decoding="async"><code class="demo-nav-code">@zachleat/solar-eclipse-toggle</code> on npm</a>
+		<a href="https://npmx.dev/package/%40zachleat%2Fsolar-eclipse-toggle"><img class="demo-nav-icon" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fnpmx.dev%2Fpackage%2F%2540zachleat%252Fsolar-eclipse-toggle/" alt="" width="24" height="24" decoding="async">npmx</a>
+		<a href="https://www.zachleat.com/projects/"><img class="demo-nav-icon" src="https://v1.indieweb-avatar.11ty.dev/https%3A%2F%2Fwww.zachleat.com%2Fprojects%2F/" alt="" width="24" height="24" decoding="async">All Projects</a>
+	</nav>
+</header>
+<!-- /zachleat nav -->
+
+		<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden">
+			<!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc. -->
+			<symbol id="se-icon-moon" viewBox="0 0 512 512"><path d="M239.3 48.7c-107.1 8.5-191.3 98.1-191.3 207.3 0 114.9 93.1 208 208 208 33.3 0 64.7-7.8 92.6-21.7-103.4-23.4-180.6-115.8-180.6-226.3 0-65.8 27.4-125.1 71.3-167.3zM0 256c0-141.4 114.6-256 256-256 19.4 0 38.4 2.2 56.7 6.3 9.9 2.2 17.3 10.5 18.5 20.5s-4 19.8-13.1 24.4c-60.6 30.2-102.1 92.7-102.1 164.8 0 101.6 82.4 184 184 184 5 0 9.9-.2 14.8-.6 10.1-.8 19.6 4.8 23.8 14.1s2 20.1-5.3 27.1C387.3 484.8 324.8 512 256 512 114.6 512 0 397.4 0 256z"/></symbol>
+			<symbol id="se-icon-sun" viewBox="0 -32 576 576"><path d="M288-32c8 0 15.4 4 19.9 10.6l58.8 87.4 103.4-20.2c7.8-1.5 15.9 .9 21.6 6.6s8.1 13.8 6.6 21.6L478 177.3 565.4 236.1C572 240.5 576 248 576 256s-4 15.4-10.6 19.9L478 334.7 498.2 438c1.5 7.8-.9 15.9-6.6 21.6s-13.8 8.1-21.6 6.6L366.7 446 307.9 533.4C303.4 540 296 544 288 544s-15.4-4-19.9-10.6L209.3 446 105.9 466.2c-7.8 1.5-15.9-.9-21.6-6.6s-8.1-13.8-6.6-21.6L98 334.7 10.6 275.9C4 271.4 0 264 0 256s4-15.4 10.6-19.9L98 177.3 77.8 73.9c-1.5-7.8 .9-15.9 6.6-21.6s13.8-8.1 21.6-6.6l103.3 20.2 58.8-87.4 1.8-2.3C274.4-29 281-32 288-32zm-47.8 138c-5.4 8-15 12-24.5 10.2l-84-16.4 16.4 84c1.8 9.5-2.2 19.1-10.2 24.5L67 256 138 303.8c8 5.4 12 15 10.2 24.5l-16.4 84 84-16.4 3.5-.4c8.3-.4 16.3 3.6 21 10.6l47.8 71 47.8-71 2.2-2.8c5.6-6.1 14-9 22.3-7.3l84 16.4-16.4-84c-1.8-9.5 2.2-19.1 10.2-24.5l71-47.8-71-47.8c-8-5.4-12-15-10.2-24.5l16.4-84-84 16.4c-9.5 1.8-19.1-2.2-24.5-10.2l-47.8-71-47.8 71zM288 376a120 120 0 1 1 0-240 120 120 0 1 1 0 240zm0-192a72 72 0 1 0 0 144 72 72 0 1 0 0-144z"/></symbol>
+			<symbol id="se-icon-half" viewBox="0 0 512 512"><path d="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0z"/></symbol>
+		</svg>
+
+		<main id="demo">
+			<p>Return to the <a href="https://github.com/zachleat/solar-eclipse-toggle">GitHub Repository</a>.</p>
+
+			<h2>Default</h2>
+			<solar-eclipse-toggle>
+				<button type="button" class="se-button" disabled>
+					<span class="se-label">
+						<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Use dark theme</span>
+						<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Use light theme</span>
+						<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Theme</span>
+					</span>
+					<span class="se-system">System</span>
+				</button>
+			</solar-eclipse-toggle>
+
+			<h2>Smaller text</h2>
+			<solar-eclipse-toggle style="font-size: .75em">
+				<button type="button" class="se-button" disabled>
+					<span class="se-label">
+						<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Use dark theme</span>
+						<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Use light theme</span>
+						<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Theme</span>
+					</span>
+					<span class="se-system">System</span>
+				</button>
+			</solar-eclipse-toggle>
+
+			<h2>Shorter labels</h2>
+			<solar-eclipse-toggle>
+				<button type="button" class="se-button" disabled>
+					<span class="se-label">
+						<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Use Dark</span>
+						<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Use Light</span>
+						<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Theme</span>
+					</span>
+					<span class="se-system">System</span>
+				</button>
+			</solar-eclipse-toggle>
+
+			<h2>Auto instead of System</h2>
+			<solar-eclipse-toggle style="--se-system-width: 2.75em">
+				<button type="button" class="se-button" disabled>
+					<span class="se-label">
+						<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Use dark theme</span>
+						<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Use light theme</span>
+						<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Theme</span>
+					</span>
+					<span class="se-system">Auto</span>
+				</button>
+			</solar-eclipse-toggle>
+
+			<h2>Custom colors</h2>
+			<p>Every instance on the page stays in sync.</p>
+			<solar-eclipse-toggle class="custom-colors">
+				<button type="button" class="se-button" disabled>
+					<span class="se-label">
+						<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Use dark theme</span>
+						<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Use light theme</span>
+						<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Theme</span>
+					</span>
+					<span class="se-system">System</span>
+				</button>
+			</solar-eclipse-toggle>
+
+			<h2>Internationalized</h2>
+			<solar-eclipse-toggle status-light="Tema claro activado" status-dark="Tema oscuro activado" status-auto="según tu sistema">
+				<button type="button" class="se-button" disabled>
+					<span class="se-label">
+						<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Usar tema oscuro</span>
+						<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Usar tema claro</span>
+						<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Tema</span>
+					</span>
+					<span class="se-system">Sistema</span>
+				</button>
+			</solar-eclipse-toggle>
+
+			<h2>Events</h2>
+			<p>Last <code>theme-change</code> event: <output id="last-event">none</output></p>
+			<script>
+			document.addEventListener("theme-change", event => {
+				document.getElementById("last-event").textContent = JSON.stringify(event.detail);
+			});
+			</script>
+		</main>
+	</body>
+</html>

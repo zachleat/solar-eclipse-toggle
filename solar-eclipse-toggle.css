@@ -1,0 +1,164 @@
+/* Layered so unlayered author styles always win */
+@layer solar-eclipse-toggle {
+	/* Light page: colored for the dark theme it switches to */
+	solar-eclipse-toggle {
+		--_color: var(--se-light-color, hsl(231, 40%, 32%));
+		--_border: var(--se-light-border, hsl(231, 40%, 32%));
+		--_icon: var(--se-light-icon, hsl(231, 45%, 30%));
+		--_hover: var(--se-light-hover, hsl(231 25% 65% / .15));
+		--_padding-block: .3em;
+		display: inline-flex;
+	}
+
+	.se-button {
+		display: inline-flex;
+		align-items: center;
+		gap: .4em;
+		padding: var(--_padding-block) .6em;
+		border: 2px solid var(--_border);
+		border-radius: 6.25em;
+		background-color: transparent;
+		color: var(--_color);
+		font: inherit;
+		font-weight: 600;
+		white-space: nowrap;
+		cursor: pointer;
+		transition: color .15s ease-in-out, border-color .15s ease-in-out, background-color .15s ease-in-out;
+	}
+	.se-button:enabled:hover {
+		background-color: var(--_hover);
+	}
+	.se-button:disabled {
+		cursor: not-allowed;
+		filter: grayscale(1);
+	}
+	.se-button:focus-visible {
+		outline: 3px solid var(--se-focus, #89deff);
+		outline-offset: 2px;
+	}
+
+	/* Scales with the text (the markup’s 16px is the pre-CSS fallback) */
+	.se-icon {
+		width: 1em;
+		height: 1em;
+		flex: none;
+		color: var(--_icon);
+	}
+	/* Every label shares one cell so the width never changes */
+	.se-label {
+		display: inline-grid;
+	}
+	/* Icon on the left, text centered in the rest */
+	.se-label > * {
+		grid-area: 1 / 1;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		column-gap: .4em;
+		text-align: center;
+		visibility: hidden;
+	}
+	/* Full-height divider between the label and SYSTEM, pulled through the button’s block padding */
+	.se-system {
+		/* Fixed width (in the button’s ems, undoing the .7em font-size) so the label can be re-centered without it */
+		box-sizing: border-box;
+		width: calc(var(--se-system-width, 3.75em) / .7);
+		align-self: stretch;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-block: calc(-1 * var(--_padding-block) / .7);
+		padding-inline-start: .5em;
+		border-inline-start: 1px solid currentColor;
+		font-size: .7em;
+		letter-spacing: .05em;
+		line-height: 1.2;
+		text-transform: uppercase;
+		visibility: hidden;
+	}
+	/* While SYSTEM is hidden, shift the text by half its width (plus the .4em gap) to center it, keeping the icon in place */
+	.se-label {
+		--_shift: calc((var(--se-system-width, 3.75em) + .4em) / 2);
+		translate: var(--_shift);
+	}
+	.se-label .se-icon {
+		translate: calc(-1 * var(--_shift));
+	}
+	.se-status {
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	/* Before JavaScript */
+	solar-eclipse-toggle:not(:defined) {
+		& :is(.se-label-unknown, .se-system) {
+			visibility: visible;
+		}
+		& :is(.se-label, .se-label .se-icon) {
+			translate: none;
+		}
+	}
+
+	/* The label previews the theme the button switches to */
+	solar-eclipse-toggle:defined .se-label-dark {
+		visibility: visible;
+	}
+
+	/* Dark page */
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) {
+			& solar-eclipse-toggle {
+				--_color: var(--se-dark-color, hsl(43, 90%, 65%));
+				--_border: var(--se-dark-border, hsl(43, 74%, 42%));
+				--_icon: var(--se-dark-icon, hsl(43, 90%, 50%));
+				--_hover: var(--se-dark-hover, hsl(43 74% 42% / .2));
+			}
+			& solar-eclipse-toggle:defined .se-label-dark {
+				visibility: hidden;
+			}
+			& solar-eclipse-toggle:defined .se-label-light {
+				visibility: visible;
+			}
+		}
+	}
+	:root[data-theme="dark"] {
+		& solar-eclipse-toggle {
+			--_color: var(--se-dark-color, hsl(43, 90%, 65%));
+			--_border: var(--se-dark-border, hsl(43, 74%, 42%));
+			--_icon: var(--se-dark-icon, hsl(43, 90%, 50%));
+			--_hover: var(--se-dark-hover, hsl(43 74% 42% / .2));
+		}
+		& solar-eclipse-toggle:defined .se-label-dark {
+			visibility: hidden;
+		}
+		& solar-eclipse-toggle:defined .se-label-light {
+			visibility: visible;
+		}
+	}
+
+	/* SYSTEM marks a return to the system theme */
+	@media (prefers-color-scheme: light) {
+		:root[data-theme="dark"] solar-eclipse-toggle:defined {
+			& .se-system {
+				visibility: visible;
+			}
+			& :is(.se-label, .se-label .se-icon) {
+				translate: none;
+			}
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		:root[data-theme="light"] solar-eclipse-toggle:defined {
+			& .se-system {
+				visibility: visible;
+			}
+			& :is(.se-label, .se-label .se-icon) {
+				translate: none;
+			}
+		}
+	}
+}

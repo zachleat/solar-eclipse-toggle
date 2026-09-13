@@ -1,0 +1,38 @@
+{
+  "name": "@zachleat/solar-eclipse-toggle",
+  "version": "1.0.0",
+  "description": "An accessible light/dark theme toggle button that follows your system preference by default.",
+  "type": "module",
+  "main": "solar-eclipse-toggle.js",
+  "exports": {
+    ".": "./solar-eclipse-toggle.js",
+    "./style.css": "./solar-eclipse-toggle.css"
+  },
+  "files": [
+    "solar-eclipse-toggle.js",
+    "solar-eclipse-toggle.css"
+  ],
+  "keywords": [
+    "web-component",
+    "custom-element",
+    "dark-mode",
+    "theme",
+    "prefers-color-scheme"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachleat/solar-eclipse-toggle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zachleat/solar-eclipse-toggle/issues"
+  },
+  "homepage": "https://github.com/zachleat/solar-eclipse-toggle#readme",
+  "author": "Zach Leatherman (https://zachleat.com/)",
+  "scripts": {
+    "start": "npx http-server ."
+  },
+  "license": "MIT"
+}
