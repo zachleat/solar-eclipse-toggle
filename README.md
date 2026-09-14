@@ -36,8 +36,8 @@ Then use the component markup:
 ```html
 <solar-eclipse-toggle>
 	<button type="button" disabled>
-		<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
-		<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
+		<span class="se-label-dark" hidden><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
+		<span class="se-label-light" hidden><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
 		<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
 		<span class="se-system">System</span>
 	</button>
@@ -103,6 +103,7 @@ Consider relabeling SYSTEM (e.g. `<span class="se-system">Default</span>`) and s
 * Announces the new theme in a `role="status"` live region, since screen readers don’t reliably announce name changes.
 * Labels, icons, and the SYSTEM label switch with CSS, so the button width never changes.
 * Before JavaScript runs (or without it), the button is disabled and shows `.se-label-unknown` with SYSTEM.
+* Without the stylesheet, `hidden` on `.se-label-dark` and `.se-label-light` keeps only `.se-label-unknown` visible.
 * Multiple instances, other tabs, and live system preference changes all stay in sync.
 
 ### Options
