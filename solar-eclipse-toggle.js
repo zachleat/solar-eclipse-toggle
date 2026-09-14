@@ -54,12 +54,20 @@ export class SolarEclipseToggle extends HTMLElement {
 		return this.hasDefaultTheme ? document.documentElement.getAttribute(this.defaultThemeAttribute) : this.systemTheme;
 	}
 
-	// Keep other tabs in sync
+	static setAllLabels() {
+		for(let instance of this.#instances) {
+			instance.setLabels();
+		}
+	}
+
+	// Keep labels in sync with the system theme, and other tabs in sync
 	static listen() {
 		if(this.#listening) {
 			return;
 		}
 		this.#listening = true;
+
+		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => this.setAllLabels());
 
 		window.addEventListener("storage", event => {
 			for(let instance of this.#instances) {
@@ -106,6 +114,16 @@ export class SolarEclipseToggle extends HTMLElement {
 				}
 			} catch(e) {}
 		}
+
+		SolarEclipseToggle.setAllLabels();
+	}
+
+	// Shows only the label previewing the theme it switches to
+	setLabels() {
+		let next = `se-label-${this.theme === "dark" ? "light" : "dark"}`;
+		for(let label of this.querySelectorAll(":scope > button > [class*='se-label-']")) {
+			label.hidden = !label.classList.contains(next);
+		}
 	}
 
 	getStatus() {
@@ -151,10 +169,7 @@ export class SolarEclipseToggle extends HTMLElement {
 		// Disabled in the markup until JavaScript can handle clicks
 		button.disabled = false;
 
-		// Hidden in the markup for pages without the stylesheet, but CSS needs them rendered to size the button
-		for(let label of button.querySelectorAll(":scope > [hidden]")) {
-			label.hidden = false;
-		}
+		this.setLabels();
 
 		this.setWidth();
 		// Web fonts can change the width after load

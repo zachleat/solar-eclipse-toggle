@@ -103,7 +103,7 @@ Consider relabeling SYSTEM (e.g. `<span class="se-system">Default</span>`) and s
 * Announces the new theme in a `role="status"` live region, since screen readers don’t reliably announce name changes.
 * Labels, icons, and the SYSTEM label switch with CSS, so the button width never changes.
 * Before JavaScript runs (or without it), the button is disabled and shows `.se-label-unknown` with SYSTEM.
-* Without the stylesheet, `hidden` on `.se-label-dark` and `.se-label-light` keeps only `.se-label-unknown` visible.
+* Without CSS, JavaScript swaps `hidden` from `.se-label-unknown` to the label for the other theme.
 * Multiple instances, other tabs, and live system preference changes all stay in sync.
 
 ### Options

@@ -54,7 +54,7 @@
 			--se-dark-icon: #ff9bd2;
 		}
 		</style>
-		<link rel="stylesheet" href="./solar-eclipse-toggle.css">
+		<link rel="stylesheet" href="./solar-eclipse-toggle.css" id="se-stylesheet">
 		<script type="module" src="./solar-eclipse-toggle.js"></script>
 	</head>
 	<body>
@@ -91,6 +91,14 @@
 		<main id="demo">
 			<p>Return to the <a href="https://github.com/zachleat/solar-eclipse-toggle">GitHub Repository</a>.</p>
 			<p>See also a page that is <a href="demo-default-dark.html">dark by default</a>.</p>
+			<!-- <p><button type="button" id="toggle-stylesheet" aria-pressed="false">Test without component CSS</button></p>
+			<script>
+			document.getElementById("toggle-stylesheet").addEventListener("click", event => {
+				let link = document.getElementById("se-stylesheet");
+				link.disabled = !link.disabled;
+				event.target.setAttribute("aria-pressed", link.disabled);
+			});
+			</script> -->
 
 			<h2>Default</h2>
 			<solar-eclipse-toggle>
