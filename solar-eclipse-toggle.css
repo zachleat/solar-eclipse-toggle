@@ -6,7 +6,11 @@
 		--_border: var(--se-light-border, hsl(231, 40%, 32%));
 		--_icon: var(--se-light-icon, hsl(231, 45%, 30%));
 		--_hover: var(--se-light-hover, hsl(231 25% 65% / .15));
+		/* SYSTEM: light text on a darker, muted (mixed with dark gray) version of the theme color */
+		--_system-bg: var(--se-light-system-bg, color-mix(in oklab, var(--_color), #333 40%));
+		--_system-color: var(--se-light-system-color, color-mix(in oklab, var(--_color) 10%, white));
 		--_padding-block: .3em;
+		--_padding-inline: .6em;
 		display: inline-flex;
 	}
 
@@ -17,9 +21,11 @@
 		display: inline-grid;
 		grid-template-columns: 1fr auto;
 		align-items: center;
-		padding: var(--_padding-block) .6em;
+		padding: var(--_padding-block) var(--_padding-inline);
 		border: 2px solid var(--_border);
 		border-radius: 6.25em;
+		/* Clips SYSTEM’s background to the rounded corners */
+		overflow: hidden;
 		background-color: transparent;
 		color: var(--_color);
 		font: inherit;
@@ -56,16 +62,18 @@
 		text-align: center;
 		visibility: hidden;
 	}
-	/* Full-height divider between the label and SYSTEM, pulled through the button’s block padding */
+	/* Full-height divider and background for SYSTEM, pulled through the button’s block and end padding */
 	.se-system {
 		display: none;
 		grid-area: 1 / 2;
 		align-self: stretch;
 		align-items: center;
 		margin-block: calc(-1 * var(--_padding-block) / .7);
-		margin-inline-start: calc(.4em / .7);
-		padding-inline-start: .5em;
-		border-inline-start: 1px solid currentColor;
+		margin-inline: calc(.4em / .7) calc(-1 * var(--_padding-inline) / .7);
+		padding-inline: .5em;
+		background-color: var(--_system-bg);
+		color: var(--_system-color);
+		border-inline-start: 1px solid var(--_border);
 		font-size: .7em;
 		letter-spacing: .05em;
 		line-height: 1.2;
@@ -101,6 +109,8 @@
 				--_border: var(--se-dark-border, hsl(43, 74%, 42%));
 				--_icon: var(--se-dark-icon, hsl(43, 90%, 50%));
 				--_hover: var(--se-dark-hover, hsl(43 74% 42% / .2));
+				--_system-bg: var(--se-dark-system-bg, color-mix(in oklab, var(--_color), #2a2a2a 65%));
+				--_system-color: var(--se-dark-system-color, color-mix(in oklab, var(--_color) 10%, white));
 			}
 			& solar-eclipse-toggle:defined .se-label-dark {
 				visibility: hidden;
@@ -116,6 +126,8 @@
 			--_border: var(--se-dark-border, hsl(43, 74%, 42%));
 			--_icon: var(--se-dark-icon, hsl(43, 90%, 50%));
 			--_hover: var(--se-dark-hover, hsl(43 74% 42% / .2));
+			--_system-bg: var(--se-dark-system-bg, color-mix(in oklab, var(--_color), #2a2a2a 65%));
+			--_system-color: var(--se-dark-system-color, color-mix(in oklab, var(--_color) 10%, white));
 		}
 		& solar-eclipse-toggle:defined .se-label-dark {
 			visibility: hidden;

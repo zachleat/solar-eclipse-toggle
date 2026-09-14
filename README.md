@@ -107,8 +107,8 @@ The stylesheet targets the `solar-eclipse-toggle` tag name.
 
 Styles are in the `solar-eclipse-toggle` cascade layer, so your own styles win. Colors use custom properties, with `light` and `dark` naming the current page theme:
 
-* `--se-light-color`, `--se-light-border`, `--se-light-icon`, `--se-light-hover`
-* `--se-dark-color`, `--se-dark-border`, `--se-dark-icon`, `--se-dark-hover`
+* `--se-light-color`, `--se-light-border`, `--se-light-icon`, `--se-light-hover`, `--se-light-system-bg`, `--se-light-system-color`
+* `--se-dark-color`, `--se-dark-border`, `--se-dark-icon`, `--se-dark-hover`, `--se-dark-system-bg`, `--se-dark-system-color`
 * `--se-focus`
 
 ## Credits
