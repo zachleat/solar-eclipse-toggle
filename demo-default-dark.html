@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme-default="dark">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="color-scheme" content="light dark">
 		<meta name="description" content="An accessible light/dark theme toggle button that follows your system preference by default.">
-		<title>solar-eclipse-toggle Web Component</title>
+		<title>solar-eclipse-toggle Web Component: Dark by Default</title>
 		<script>
 		// Applies a saved theme before first paint
 		try {
@@ -16,23 +16,16 @@
 		} catch(e) {}
 		</script>
 		<style>
-		/* Demo styles */
+		/* Demo styles: dark unless the visitor saved light */
 		:root {
-			--bg: #fff;
-			--text: #222;
-			color-scheme: light;
-		}
-		@media (prefers-color-scheme: dark) {
-			:root:not([data-theme="light"]) {
-				--bg: #1d1d1d;
-				--text: #eee;
-				color-scheme: dark;
-			}
-		}
-		:root[data-theme="dark"] {
 			--bg: #1d1d1d;
 			--text: #eee;
 			color-scheme: dark;
+		}
+		:root[data-theme="light"] {
+			--bg: #fff;
+			--text: #222;
+			color-scheme: light;
 		}
 		body {
 			font-family: system-ui, sans-serif;
@@ -89,8 +82,7 @@
 		</svg>
 
 		<main id="demo">
-			<p>Return to the <a href="https://github.com/zachleat/solar-eclipse-toggle">GitHub Repository</a>.</p>
-			<p>See also a page that is <a href="demo-default-dark.html">dark by default</a>.</p>
+			<p>This page is dark by default, ignoring your system preference, using <code>&lt;html data-theme-default="dark"&gt;</code>. Return to the <a href="demo.html">main demo</a>.</p>
 
 			<h2>Default</h2>
 			<solar-eclipse-toggle>
@@ -98,37 +90,7 @@
 					<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
 					<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
 					<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
-					<span class="se-system">System</span>
-				</button>
-			</solar-eclipse-toggle>
-
-			<h2>Smaller text</h2>
-			<solar-eclipse-toggle style="font-size: .75em">
-				<button type="button" disabled>
-					<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
-					<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
-					<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
-					<span class="se-system">System</span>
-				</button>
-			</solar-eclipse-toggle>
-
-			<h2>Shorter labels</h2>
-			<solar-eclipse-toggle>
-				<button type="button" disabled>
-					<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use Dark</span>
-					<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use Light</span>
-					<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
-					<span class="se-system">System</span>
-				</button>
-			</solar-eclipse-toggle>
-
-			<h2>Auto instead of System</h2>
-			<solar-eclipse-toggle>
-				<button type="button" disabled>
-					<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
-					<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
-					<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
-					<span class="se-system">Auto</span>
+					<span class="se-system">Default</span>
 				</button>
 			</solar-eclipse-toggle>
 
@@ -139,17 +101,7 @@
 					<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
 					<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
 					<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
-					<span class="se-system">System</span>
-				</button>
-			</solar-eclipse-toggle>
-
-			<h2>Internationalized</h2>
-			<solar-eclipse-toggle status-light="Tema claro activado" status-dark="Tema oscuro activado" status-auto="según tu sistema">
-				<button type="button" disabled>
-					<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Usar tema oscuro</span>
-					<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Usar tema claro</span>
-					<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Tema</span>
-					<span class="se-system">Sistema</span>
+					<span class="se-system">Default</span>
 				</button>
 			</solar-eclipse-toggle>
 

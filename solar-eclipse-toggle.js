@@ -9,6 +9,7 @@ export class SolarEclipseToggle extends HTMLElement {
 
 	// The stylesheet reads this attribute, so it isn't configurable
 	static themeAttribute = "data-theme";
+	static defaultThemeAttribute = "data-theme-default";
 
 	static attributes = {
 		storageKey: "storage-key",
@@ -22,6 +23,7 @@ export class SolarEclipseToggle extends HTMLElement {
 		statusLight: "Light theme on",
 		statusDark: "Dark theme on",
 		statusAuto: "matching your system",
+		statusAutoDefault: "the default",
 	};
 
 	static classes = {
@@ -41,6 +43,15 @@ export class SolarEclipseToggle extends HTMLElement {
 
 	static isTheme(value) {
 		return value === "light" || value === "dark";
+	}
+
+	static get hasDefaultTheme() {
+		return this.isTheme(document.documentElement.getAttribute(this.defaultThemeAttribute));
+	}
+
+	// A valid `data-theme-default` on the root element overrides the system theme
+	static get defaultTheme() {
+		return this.hasDefaultTheme ? document.documentElement.getAttribute(this.defaultThemeAttribute) : this.systemTheme;
 	}
 
 	// Keep other tabs in sync
@@ -73,13 +84,13 @@ export class SolarEclipseToggle extends HTMLElement {
 
 	get theme() {
 		let value = document.documentElement.getAttribute(SolarEclipseToggle.themeAttribute);
-		return SolarEclipseToggle.isTheme(value) ? value : SolarEclipseToggle.systemTheme;
+		return SolarEclipseToggle.isTheme(value) ? value : SolarEclipseToggle.defaultTheme;
 	}
 
-	// Choosing the system theme clears the override so the page follows the OS again.
+	// Choosing the default theme clears the override so the page follows the default (or the OS) again.
 	applyTheme(theme, persist = true) {
 		let root = document.documentElement;
-		let auto = !SolarEclipseToggle.isTheme(theme) || theme === SolarEclipseToggle.systemTheme;
+		let auto = !SolarEclipseToggle.isTheme(theme) || theme === SolarEclipseToggle.defaultTheme;
 		if(auto) {
 			root.removeAttribute(SolarEclipseToggle.themeAttribute);
 		} else {
@@ -99,7 +110,11 @@ export class SolarEclipseToggle extends HTMLElement {
 
 	getStatus() {
 		let status = this.#getAttr(this.theme === "dark" ? "statusDark" : "statusLight");
-		return this.isAuto ? `${status}, ${this.#getAttr("statusAuto")}.` : `${status}.`;
+		if(!this.isAuto) {
+			return `${status}.`;
+		}
+		let auto = this.getAttribute(SolarEclipseToggle.attributes.statusAuto) ?? SolarEclipseToggle.defaults[SolarEclipseToggle.hasDefaultTheme ? "statusAutoDefault" : "statusAuto"];
+		return `${status}, ${auto}.`;
 	}
 
 	// Sets min-width to the width with SYSTEM shown, so toggling SYSTEM’s display doesn’t resize it

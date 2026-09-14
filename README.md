@@ -72,6 +72,29 @@ Write your dark styles for both the system preference and the override:
 }
 ```
 
+### Default theme
+
+To ignore the system preference when there is no saved choice, add `data-theme-default` (`light` or `dark`) to the root element:
+
+```html
+<html data-theme-default="dark">
+```
+
+Use the same attribute in your own CSS to pick the page’s default colors:
+
+```css
+:root {
+	color-scheme: dark;
+	/* dark styles */
+}
+:root[data-theme="light"] {
+	color-scheme: light;
+	/* light styles */
+}
+```
+
+Consider relabeling SYSTEM (e.g. `<span class="se-system">Default</span>`) and setting `status-auto`, which defaults to `the default` when a default theme is declared. See `demo-default-dark.html`.
+
 ## Features
 
 * Follows `prefers-color-scheme` until a visitor picks the other theme, which is saved to `localStorage`.
@@ -85,7 +108,7 @@ Write your dark styles for both the system preference and the override:
 ### Options
 
 * `storage-key`: `localStorage` key. Default: `theme`
-* `status-light`, `status-dark`, `status-auto`: announcements. Defaults: `Light theme on`, `Dark theme on`, `matching your system`
+* `status-light`, `status-dark`, `status-auto`: announcements. Defaults: `Light theme on`, `Dark theme on`, `matching your system` (or `the default` with `data-theme-default`)
 * Listen for the bubbling `theme-change` event, with `event.detail` of `{ theme, auto }`.
 * Translate by editing the markup and the `status-*` attributes.
 

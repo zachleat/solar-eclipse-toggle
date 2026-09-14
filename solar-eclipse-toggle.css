@@ -101,9 +101,9 @@
 		visibility: visible;
 	}
 
-	/* Dark page */
+	/* Dark page: from the system preference, unless a default or override says light */
 	@media (prefers-color-scheme: dark) {
-		:root:not([data-theme="light"]) {
+		:root:not([data-theme-default="light"], [data-theme="light"]) {
 			& solar-eclipse-toggle {
 				--_color: var(--se-dark-color, hsl(43, 90%, 65%));
 				--_border: var(--se-dark-border, hsl(43, 74%, 42%));
@@ -120,7 +120,9 @@
 			}
 		}
 	}
-	:root[data-theme="dark"] {
+	/* Dark page: from an override or a dark default */
+	:root[data-theme="dark"],
+	:root[data-theme-default="dark"]:not([data-theme="light"]) {
 		& solar-eclipse-toggle {
 			--_color: var(--se-dark-color, hsl(43, 90%, 65%));
 			--_border: var(--se-dark-border, hsl(43, 74%, 42%));
@@ -137,16 +139,22 @@
 		}
 	}
 
-	/* SYSTEM marks a return to the system theme */
+	/* SYSTEM marks a return to the default theme (or the system theme, without a valid default) */
+	:root[data-theme-default="light"][data-theme="dark"],
+	:root[data-theme-default="dark"][data-theme="light"] {
+		& solar-eclipse-toggle:defined .se-system {
+			display: flex;
+		}
+	}
 	@media (prefers-color-scheme: light) {
-		:root[data-theme="dark"] solar-eclipse-toggle:defined {
+		:root:not([data-theme-default="light"], [data-theme-default="dark"])[data-theme="dark"] solar-eclipse-toggle:defined {
 			& .se-system {
 				display: flex;
 			}
 		}
 	}
 	@media (prefers-color-scheme: dark) {
-		:root[data-theme="light"] solar-eclipse-toggle:defined {
+		:root:not([data-theme-default="light"], [data-theme-default="dark"])[data-theme="light"] solar-eclipse-toggle:defined {
 			& .se-system {
 				display: flex;
 			}
