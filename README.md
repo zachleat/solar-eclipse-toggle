@@ -35,12 +35,10 @@ Then use the component markup:
 
 ```html
 <solar-eclipse-toggle>
-	<button type="button" class="se-button" disabled>
-		<span class="se-label">
-			<span class="se-label-dark"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-moon"/></svg>Use dark theme</span>
-			<span class="se-label-light"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-sun"/></svg>Use light theme</span>
-			<span class="se-label-unknown"><svg class="se-icon" aria-hidden="true" focusable="false" width="16" height="16" fill="currentColor"><use href="#se-icon-half"/></svg>Theme</span>
-		</span>
+	<button type="button" disabled>
+		<span class="se-label-dark"><svg aria-hidden="true"><use href="#se-icon-moon"/></svg>Use dark theme</span>
+		<span class="se-label-light"><svg aria-hidden="true"><use href="#se-icon-sun"/></svg>Use light theme</span>
+		<span class="se-label-unknown"><svg aria-hidden="true"><use href="#se-icon-half"/></svg>Theme</span>
 		<span class="se-system">System</span>
 	</button>
 </solar-eclipse-toggle>

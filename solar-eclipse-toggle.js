@@ -25,7 +25,6 @@ export class SolarEclipseToggle extends HTMLElement {
 	};
 
 	static classes = {
-		button: "se-button",
 		status: "se-status",
 	};
 
@@ -116,7 +115,7 @@ export class SolarEclipseToggle extends HTMLElement {
 	}
 
 	connectedCallback() {
-		let button = this.querySelector(`.${SolarEclipseToggle.classes.button}`);
+		let button = this.querySelector(":scope > button");
 		if(!button) {
 			return;
 		}

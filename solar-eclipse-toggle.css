@@ -11,11 +11,12 @@
 	}
 
 	/* Fills the component’s min-width, set by JavaScript so toggling SYSTEM doesn’t resize the button */
-	.se-button {
+	solar-eclipse-toggle > button {
 		flex-grow: 1;
-		display: inline-flex;
+		/* Labels stack in the first column, SYSTEM (when shown) takes the second */
+		display: inline-grid;
+		grid-template-columns: 1fr auto;
 		align-items: center;
-		gap: .4em;
 		padding: var(--_padding-block) .6em;
 		border: 2px solid var(--_border);
 		border-radius: 6.25em;
@@ -27,32 +28,26 @@
 		cursor: pointer;
 		transition: color .15s ease-in-out, border-color .15s ease-in-out, background-color .15s ease-in-out;
 	}
-	.se-button:enabled:hover {
+	solar-eclipse-toggle > button:enabled:hover {
 		background-color: var(--_hover);
 	}
-	.se-button:disabled {
+	solar-eclipse-toggle > button:disabled {
 		cursor: not-allowed;
 		filter: grayscale(1);
 	}
-	.se-button:focus-visible {
+	solar-eclipse-toggle > button:focus-visible {
 		outline: 3px solid var(--se-focus, #89deff);
 		outline-offset: 2px;
 	}
 
-	/* Scales with the text (the markup’s 16px is the pre-CSS fallback) */
-	.se-icon {
+	solar-eclipse-toggle svg {
 		width: 1em;
 		height: 1em;
-		flex: none;
+		fill: currentColor;
 		color: var(--_icon);
 	}
-	/* Every label shares one cell so the width never changes */
-	.se-label {
-		display: inline-grid;
-		flex-grow: 1;
-	}
-	/* Icon on the left, text centered in the rest */
-	.se-label > * {
+	/* Every label shares one cell so the width never changes, with the icon on the left and text centered in the rest */
+	solar-eclipse-toggle > button > :not(.se-system) {
 		grid-area: 1 / 1;
 		display: grid;
 		grid-template-columns: auto 1fr;
@@ -64,9 +59,11 @@
 	/* Full-height divider between the label and SYSTEM, pulled through the button’s block padding */
 	.se-system {
 		display: none;
+		grid-area: 1 / 2;
 		align-self: stretch;
 		align-items: center;
 		margin-block: calc(-1 * var(--_padding-block) / .7);
+		margin-inline-start: calc(.4em / .7);
 		padding-inline-start: .5em;
 		border-inline-start: 1px solid currentColor;
 		font-size: .7em;
